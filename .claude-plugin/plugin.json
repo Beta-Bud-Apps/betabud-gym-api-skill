@@ -1,0 +1,12 @@
+{
+  "name": "betabud-gym-api",
+  "description": "Get a climbing gym's own statistics from the Beta Bud Gym API: sends, repeats, attempts, active climbers, grade agreement, climb quality, and setter feedback.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Beta Bud",
+    "url": "https://betabud.app"
+  },
+  "homepage": "https://github.com/Beta-Bud-Apps/betabud-gym-api-skill",
+  "repository": "https://github.com/Beta-Bud-Apps/betabud-gym-api-skill",
+  "keywords": ["betabud", "climbing", "gym", "api"]
+}

@@ -1,25 +1,54 @@
 # Beta Bud Gym API skill
 
-A [Claude Code](https://claude.com/claude-code) skill for the Beta Bud Gym API.
+A [Claude Code](https://claude.com/claude-code) plugin with one skill for the Beta Bud Gym API.
 
 The skill teaches an agent to get a gym's own numbers from Beta Bud: sends, repeats, attempts, active climbers, grade agreement, climb quality, and setter feedback. It covers the token, the ten endpoints, the meaning of each number, the rate limits, and the privacy rules.
 
 ## Install
 
+There are three ways to install the skill. Use the first one that applies to you.
+
+### Claude Code plugin
+
+Run these two commands in a Claude Code session:
+
+```
+/plugin marketplace add Beta-Bud-Apps/betabud-gym-api-skill
+/plugin install betabud-gym-api@betabud
+```
+
+From a terminal, the same commands are:
+
+```sh
+claude plugin marketplace add Beta-Bud-Apps/betabud-gym-api-skill
+claude plugin install betabud-gym-api@betabud
+```
+
+### Claude desktop app
+
+1. Open the plugin settings of the app.
+2. Select **Add marketplace**.
+3. Enter `Beta-Bud-Apps/betabud-gym-api-skill`.
+4. Install the `betabud-gym-api` plugin from the `betabud` marketplace.
+
+**Note:** The app can block calls to `betabud.app`. If a request fails, add `betabud.app` to the allowed domains of the app. As an alternative, use Claude Code.
+
+### Manual copy
+
 Personal, for every project:
 
 ```sh
 git clone https://github.com/Beta-Bud-Apps/betabud-gym-api-skill.git
-cp -r betabud-gym-api-skill/betabud-gym-api ~/.claude/skills/
+cp -r betabud-gym-api-skill/skills/betabud-gym-api ~/.claude/skills/
 ```
 
 One project:
 
 ```sh
-cp -r betabud-gym-api-skill/betabud-gym-api .claude/skills/
+cp -r betabud-gym-api-skill/skills/betabud-gym-api .claude/skills/
 ```
 
-Restart the session after the copy. To check the install, ask the agent for the number of sends at your gym today.
+Restart the session after the install. To check the install, ask the agent for the number of sends at your gym today.
 
 ## Use
 
@@ -46,7 +75,9 @@ curl -H "Authorization: Bearer $BETA_BUD_API_TOKEN" \
 
 | Path | Content |
 | --- | --- |
-| `betabud-gym-api/SKILL.md` | The skill |
+| `skills/betabud-gym-api/SKILL.md` | The skill |
+| `.claude-plugin/plugin.json` | The plugin manifest |
+| `.claude-plugin/marketplace.json` | The `betabud` marketplace, which lists the plugin |
 
 ## Licence
 

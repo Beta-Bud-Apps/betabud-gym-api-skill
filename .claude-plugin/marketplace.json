@@ -1,0 +1,15 @@
+{
+  "name": "betabud",
+  "description": "Plugins from Beta Bud for climbing gyms.",
+  "owner": {
+    "name": "Beta Bud",
+    "url": "https://betabud.app"
+  },
+  "plugins": [
+    {
+      "name": "betabud-gym-api",
+      "source": "./",
+      "description": "Get a climbing gym's own statistics from the Beta Bud Gym API."
+    }
+  ]
+}
