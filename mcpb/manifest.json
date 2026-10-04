@@ -1,0 +1,56 @@
+{
+  "manifest_version": "0.3",
+  "name": "betabud-gym-api",
+  "display_name": "Beta Bud Gym API",
+  "version": "1.1.0",
+  "description": "Get the numbers of your climbing gym from Beta Bud: sends, repeats, attempts, active climbers, grade agreement, climb quality, and setter feedback.",
+  "long_description": "This extension connects Claude to the Beta Bud Gym API. The API is read-only. It gives a gym its own numbers: sends, repeats, attempts, active climbers, grade agreement, climb quality, and setter feedback.\n\nA gym admin makes an API token in Beta Bud, in **Gym Settings → API Access**. Paste the token when you install the extension. Beta Bud must turn the API on for the gym first.\n\nThe API gives no names, email addresses, or user ids of climbers.",
+  "author": {
+    "name": "Beta Bud",
+    "url": "https://betabud.app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Beta-Bud-Apps/betabud-gym-api-skill"
+  },
+  "homepage": "https://github.com/Beta-Bud-Apps/betabud-gym-api-skill",
+  "support": "https://github.com/Beta-Bud-Apps/betabud-gym-api-skill/issues",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "BETA_BUD_API_TOKEN": "${user_config.api_token}"
+      }
+    }
+  },
+  "tools": [
+    { "name": "list_gyms", "description": "List the gyms that the token covers, with the id and the timezone of each gym." },
+    { "name": "get_gym", "description": "Get one gym and its timezone." },
+    { "name": "list_zones", "description": "List the zones of a gym." },
+    { "name": "list_grade_systems", "description": "List the grade systems of a gym, with the grades in order." },
+    { "name": "list_climbs", "description": "List the climbs of a gym." },
+    { "name": "get_climb", "description": "Get one climb." },
+    { "name": "get_climb_stats", "description": "Get the opinions and the activity counts of one climb." },
+    { "name": "list_climb_stats", "description": "List the opinions and the activity counts of every climb of a gym." },
+    { "name": "get_activity_summary", "description": "Get the sends, repeats, attempts, and active people of a gym for each day." },
+    { "name": "list_setter_feedback", "description": "List the comments that climbers send to the setters." }
+  ],
+  "keywords": ["betabud", "climbing", "gym", "api"],
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18"
+    }
+  },
+  "user_config": {
+    "api_token": {
+      "type": "string",
+      "title": "Beta Bud API token",
+      "description": "A gym admin makes the token in Beta Bud. Open Gym Settings → API Access, and select Create token. The token starts with bbk_.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

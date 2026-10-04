@@ -14,20 +14,38 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # The tag, the plugin version, and the ZIP must agree.
-      - name: Check the plugin version
+      # The tag, the plugin version, the manifest version, and the package version must agree.
+      - name: Check the versions
         run: |
-          version="$(jq -r .version .claude-plugin/plugin.json)"
-          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
-            echo "::error::The tag $GITHUB_REF_NAME does not agree with the plugin version $version."
-            exit 1
-          fi
+          for file in .claude-plugin/plugin.json mcpb/manifest.json mcpb/package.json; do
+            version="$(jq -r .version "$file")"
+            if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+              echo "::error::The tag $GITHUB_REF_NAME does not agree with the version $version in $file."
+              exit 1
+            fi
+          done
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Test the MCP server
+        working-directory: mcpb
+        run: |
+          npm ci
+          npm test
 
       # The ZIP holds the betabud-gym-api folder, with SKILL.md at the top of that folder.
       - name: Make the ZIP
         run: cd skills && zip -r ../betabud-gym-api.zip betabud-gym-api
 
+      # The bundle holds the manifest, the server, and the production dependencies.
+      - name: Make the MCP Bundle
+        run: |
+          (cd mcpb && npm ci --omit=dev)
+          npx --yes @anthropic-ai/mcpb pack mcpb betabud-gym-api.mcpb
+
       - name: Create the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" betabud-gym-api.zip --title "$GITHUB_REF_NAME" --generate-notes
+        run: gh release create "$GITHUB_REF_NAME" betabud-gym-api.zip betabud-gym-api.mcpb --title "$GITHUB_REF_NAME" --generate-notes
