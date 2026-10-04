@@ -6,7 +6,7 @@ The skill teaches an agent to get a gym's own numbers from Beta Bud: sends, repe
 
 ## Install
 
-There are three ways to install the skill. Use the first one that applies to you.
+There are four ways to install the skill. Use the first one that applies to you.
 
 ### Claude Code plugin
 
@@ -32,6 +32,15 @@ claude plugin install betabud-gym-api@betabud
 4. Install the `betabud-gym-api` plugin from the `betabud` marketplace.
 
 **Note:** The app can block calls to `betabud.app`. If a request fails, add `betabud.app` to the allowed domains of the app. As an alternative, use Claude Code.
+
+### Download the ZIP
+
+[**Download the skill**](https://github.com/Beta-Bud-Apps/betabud-gym-api-skill/releases/latest/download/betabud-gym-api.zip)
+
+The link always gives the ZIP from the newest release. Use the ZIP in one of these two ways:
+
+- In the Claude app, open the skill settings and upload the ZIP.
+- For Claude Code, extract the ZIP and move the `betabud-gym-api` folder into `~/.claude/skills/`.
 
 ### Manual copy
 
@@ -78,6 +87,16 @@ curl -H "Authorization: Bearer $BETA_BUD_API_TOKEN" \
 | `skills/betabud-gym-api/SKILL.md` | The skill |
 | `.claude-plugin/plugin.json` | The plugin manifest |
 | `.claude-plugin/marketplace.json` | The `betabud` marketplace, which lists the plugin |
+| `.github/workflows/release.yml` | The workflow that makes a release with the ZIP |
+
+## Release
+
+A version tag starts the release workflow. The workflow makes the ZIP from `skills/betabud-gym-api`, creates the GitHub Release, and attaches the ZIP.
+
+1. Change `version` in `.claude-plugin/plugin.json`, and merge the change into `main`.
+2. Push a tag with the same version, for example `v1.0.1`.
+
+The workflow stops if the tag and the plugin version do not agree.
 
 ## Licence
 
